@@ -1,5 +1,7 @@
+// Fonction au chargement de la page (chargement des données dans le localStorage, nom d'utilisateur localStorage, fonction écouteur d'évènement = stocker / changer nom d'utilisateur)
+
 window.addEventListener('load', () => {
-	todos = JSON.parse(localStorage.getItem('todos')) || [];
+	todos = JSON.parse(localStorage.getItem('todos')) || []; // charge les tâches stockées dans le localStorage s'il y en a, ou crée un tableau vide s'il n'y en a pas encore
 	const nameInput = document.querySelector('#name');
 	const newTodoForm = document.querySelector('#new-todo-form');
 
@@ -11,23 +13,27 @@ window.addEventListener('load', () => {
 		localStorage.setItem('username', e.target.value);
 	})
 
-	newTodoForm.addEventListener('submit', (e) => {
-		e.preventDefault();
+	newTodoForm.addEventListener('submit', e => {
+		e.preventDefault(); // empêche la page de se recharger
+
+		// Const qui permet de récupérer les valeurs entrées par l'utilisateur dans le formulaire
 
 		const todo = {
 			content: e.target.elements.content.value,
 			category: e.target.elements.category.value,
-			done: false,
-			createdAt: new Date().getTime()
+			done: false, // Utilisé plus tard pour savoir si la tâches est terminée ou non
+			createdAt: new Date().getTime() 
 		}
 
-		todos.push(todo);
+		todos.push(todo); // ajoute todo au tableau todos
 
+		// Enregistrement du todos dans le stockage puis convertir en chaîne de caractères JSON
 		localStorage.setItem('todos', JSON.stringify(todos));
 
-		// Reset the form
+		// Reinitialisation du formulaire
 		e.target.reset();
-
+		
+		// Met a jour la liste des taches en fonction du contenu todos
 		DisplayTodos()
 	})
 
