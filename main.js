@@ -22,7 +22,7 @@ window.addEventListener('load', () => {
 			content: e.target.elements.content.value,
 			category: e.target.elements.category.value,
 			done: false, // Utilisé plus tard pour savoir si la tâches est terminée ou non
-			createdAt: new Date().getTime() 
+			createdAt: new Date().getTime()
 		}
 
 		todos.push(todo); // ajoute todo au tableau todos
@@ -44,6 +44,7 @@ function DisplayTodos () {
 	const todoList = document.querySelector('#todo-list');
 	todoList.innerHTML = "";
 
+	todos.sort((a,b) => b.createdAt - a.createdAt);
 	todos.forEach(todo => {
 		const todoItem = document.createElement('div');
 		todoItem.classList.add('todo-item');
@@ -51,6 +52,7 @@ function DisplayTodos () {
 		const label = document.createElement('label');
 		const input = document.createElement('input');
 		const span = document.createElement('span');
+		const date = document.createElement('date');
 		const content = document.createElement('div');
 		const actions = document.createElement('div');
 		const edit = document.createElement('button');
@@ -59,15 +61,17 @@ function DisplayTodos () {
 		input.type = 'checkbox';
 		input.checked = todo.done;
 		span.classList.add('bubble');
-		if (todo.category == 'personal') {
+		if (todo.category === 'personal') {
 			span.classList.add('personal');
 		} else {
 			span.classList.add('business');
 		}
 		content.classList.add('todo-content');
+		date.classList.add('todo-date');
 		actions.classList.add('actions');
 		edit.classList.add('edit');
 		deleteButton.classList.add('delete');
+
 
 		content.innerHTML = `<input type="text" value="${todo.content}" readonly>`;
 		edit.innerHTML = 'Edit';
@@ -79,7 +83,14 @@ function DisplayTodos () {
 		actions.appendChild(deleteButton);
 		todoItem.appendChild(label);
 		todoItem.appendChild(content);
+		todoItem.appendChild(date);
 		todoItem.appendChild(actions);
+		
+
+		// Ajout de l'heure à laquelle la tâche a été ajoutée
+		const dateString = new Date(todo.createdAt).toLocaleString();
+		date.textContent = dateString;
+
 
 		todoList.appendChild(todoItem);
 

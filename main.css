@@ -174,6 +174,7 @@ input:checked ~ .bubble::after {
     margin: 1rem 0;
 }
 
+
 .todo-list .todo-item {
     display: flex;
     align-items: center;
@@ -184,10 +185,15 @@ input:checked ~ .bubble::after {
     margin-bottom: 1rem;
 }
 
+  
 .todo-item label {
     display: block;
     margin-right: 1rem;
     cursor: pointer;
+}
+
+.todo-item .todo-content, .todo-item .todo-date {
+	display: flex;
 }
 
 .todo-item .todo-content {
@@ -229,4 +235,13 @@ input:checked ~ .bubble::after {
 .todo-item.done .todo-content input {
     text-decoration: line-through;
     color: var(--grey);
+}
+
+.todo-item .todo-date {
+    flex: 1 1 auto;
+	margin-top: 10px;
+    text-align: right;
+	margin-right: 65rem;
+	font-size: 12px;
+	color: gray;
 }
