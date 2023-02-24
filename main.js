@@ -40,12 +40,15 @@ window.addEventListener('load', () => {
 	DisplayTodos()
 })
 
+// Function pour mettre à jour l'affichage des tâches à partir des données stockées dans le local storage
+
 function DisplayTodos () {
 	const todoList = document.querySelector('#todo-list');
 	todoList.innerHTML = "";
 
-	todos.sort((a,b) => b.createdAt - a.createdAt);
+	todos.sort((a,b) => b.createdAt - a.createdAt); // trie les taches par ordres décroissant selon date de création
 	todos.forEach(todo => {
+		// Element HTML pour chaque tâche à afficher dans la liste
 		const todoItem = document.createElement('div');
 		todoItem.classList.add('todo-item');
 
@@ -76,6 +79,8 @@ function DisplayTodos () {
 		content.innerHTML = `<input type="text" value="${todo.content}" readonly>`;
 		edit.innerHTML = 'Edit';
 		deleteButton.innerHTML = 'Delete';
+		
+		// Structure HTML liste des tâches 
 
 		label.appendChild(input);
 		label.appendChild(span);
@@ -91,9 +96,10 @@ function DisplayTodos () {
 		const dateString = new Date(todo.createdAt).toLocaleString();
 		date.textContent = dateString;
 
-
+		// Ajout de la tâche dans la liste (html)
 		todoList.appendChild(todoItem);
-
+		
+		// Ajout du style css de la classe done si la tâche est terminée)
 		if (todo.done) {
 			todoItem.classList.add('done');
 		}
