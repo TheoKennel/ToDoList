@@ -63,6 +63,7 @@ function DisplayTodos () {
 
 		input.type = 'checkbox';
 		input.checked = todo.done;
+		// Ajout des classes CSS aux éléments HTML
 		span.classList.add('bubble');
 		if (todo.category === 'personal') {
 			span.classList.add('personal');
@@ -104,6 +105,7 @@ function DisplayTodos () {
 			todoItem.classList.add('done');
 		}
 		
+		// Ajout d'évènement lorsque la case est coché ou non puis applique le style CSS
 		input.addEventListener('change', (e) => {
 			todo.done = e.target.checked;
 			localStorage.setItem('todos', JSON.stringify(todos));
@@ -117,12 +119,12 @@ function DisplayTodos () {
 			DisplayTodos()
 
 		})
-
+		// Fonction pour permettre a l'utilisateur d'éditer le contenue de la tâche déjà ajoutée à la liste
 		edit.addEventListener('click', (e) => {
 			const input = content.querySelector('input');
 			input.removeAttribute('readonly');
 			input.focus();
-			input.addEventListener('blur', (e) => {
+			input.addEventListener('blur', (e) => {  // Permet de revenir en lecture seule
 				input.setAttribute('readonly', true);
 				todo.content = e.target.value;
 				localStorage.setItem('todos', JSON.stringify(todos));
@@ -130,7 +132,8 @@ function DisplayTodos () {
 
 			})
 		})
-
+		
+		// Fonction pour supprimé l'élement de la liste et mettre à jour dans le localStorage
 		deleteButton.addEventListener('click', (e) => {
 			todos = todos.filter(t => t != todo);
 			localStorage.setItem('todos', JSON.stringify(todos));
